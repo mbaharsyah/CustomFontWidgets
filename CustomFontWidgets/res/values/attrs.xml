@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <declare-styleable name="FontStyleable">
+        <!-- Make sure the value mapped to a file in assets/fonts/value.ttf -->
+        <attr name="typeface" format="string"/>
+    </declare-styleable>
+    
+</resources>
