@@ -1,10 +1,7 @@
 package com.kimikanen.uilib.customfontwidgets;
 
-import com.kimikanen.uilib.customfontwidgets.internal.TypefaceHelper;
-
+import com.kimikanen.uilib.customfontwidgets.internal.FontStylist;
 import android.content.Context;
-import android.content.res.TypedArray;
-import android.graphics.Typeface;
 import android.util.AttributeSet;
 
 /**
@@ -30,40 +27,16 @@ public class CheckedTextView extends android.widget.CheckedTextView {
 
 	public CheckedTextView(Context context) {
 		super(context);
-		setFont(context, null, 0);
+		FontStylist.apply(this, null, 0);
 	}
 
 	public CheckedTextView(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		setFont(context, attrs, 0);
+		FontStylist.apply(this, attrs, 0);
 	}
 
 	public CheckedTextView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
-		setFont(context, attrs, defStyle);
+		FontStylist.apply(this, attrs, defStyle);
 	}
-
-	private void setFont(Context context, AttributeSet attrs, int defStyle) {
-		// avoid the GUI tool having a problem
-		if (isInEditMode()) {
-			return;
-		}
-
-		// TODO define default
-		String asset = "Roboto-Regular";
-
-		if (attrs != null) {
-			TypedArray values = context.obtainStyledAttributes(attrs,
-					R.styleable.FontStyleable, defStyle, 0);
-			if (values != null) {
-				asset = values.getString(R.styleable.FontStyleable_typeface);
-				values.recycle();
-			}
-		}
-
-		final Typeface typeface = TypefaceHelper.getInstance().getTypeface(
-				context, asset);
-		setTypeface(typeface);
-	}
-
 }

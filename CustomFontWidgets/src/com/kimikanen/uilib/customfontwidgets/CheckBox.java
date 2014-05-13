@@ -1,11 +1,9 @@
 package com.kimikanen.uilib.customfontwidgets;
 
-import com.kimikanen.uilib.customfontwidgets.internal.TypefaceHelper;
-
 import android.content.Context;
-import android.content.res.TypedArray;
-import android.graphics.Typeface;
 import android.util.AttributeSet;
+
+import com.kimikanen.uilib.customfontwidgets.internal.FontStylist;
 
 /**
  * A custom {@link android.widget.CheckBox CheckBox} that can be configured to
@@ -30,40 +28,17 @@ public class CheckBox extends android.widget.CheckBox {
 
 	public CheckBox(Context context) {
 		super(context);
-		setFont(context, null, 0);
+		FontStylist.apply(this, null, 0);
 	}
 
 	public CheckBox(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		setFont(context, attrs, 0);
+		FontStylist.apply(this, attrs, 0);
 	}
 
 	public CheckBox(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
-		setFont(context, attrs, defStyle);
-	}
-
-	private void setFont(Context context, AttributeSet attrs, int defStyle) {
-		// avoid the GUI tool having a problem
-		if (isInEditMode()) {
-			return;
-		}
-
-		// TODO define default
-		String asset = "Roboto-Regular";
-
-		if (attrs != null) {
-			TypedArray values = context.obtainStyledAttributes(attrs,
-					R.styleable.FontStyleable, defStyle, 0);
-			if (values != null) {
-				asset = values.getString(R.styleable.FontStyleable_typeface);
-				values.recycle();
-			}
-		}
-
-		final Typeface typeface = TypefaceHelper.getInstance().getTypeface(
-				context, asset);
-		setTypeface(typeface);
+		FontStylist.apply(this, attrs, defStyle);
 	}
 
 }

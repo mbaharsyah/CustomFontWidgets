@@ -1,15 +1,13 @@
 package com.kimikanen.uilib.customfontwidgets;
 
-import com.kimikanen.uilib.customfontwidgets.internal.TypefaceHelper;
-
 import android.content.Context;
-import android.content.res.TypedArray;
-import android.graphics.Typeface;
 import android.util.AttributeSet;
 
+import com.kimikanen.uilib.customfontwidgets.internal.FontStylist;
+
 /**
- * A custom {@link android.widget.CheckedTextView CheckedTextView} that can be configured to
- * use a certain font from layout xml
+ * A custom {@link android.widget.CheckedTextView CheckedTextView} that can be
+ * configured to use a certain font from layout xml
  * 
  * Usage : <br>
  * 
@@ -21,49 +19,28 @@ import android.util.AttributeSet;
  * 	myapp:typeface="Roboto-Thin" /&gt;
  * </pre>
  * 
- * make sure the value of
- * <code>myapp:typeface</code> is mapped to a file fonts/&lt;value&gt;.ttf in assets folder
+ * make sure the value of <code>myapp:typeface</code> is mapped to a file
+ * fonts/&lt;value&gt;.ttf in assets folder
  * 
  * @author mbaharsyah
  */
-public class MultiAutoCompleteTextView extends android.widget.AutoCompleteTextView {
+public class MultiAutoCompleteTextView extends
+		android.widget.AutoCompleteTextView {
 
 	public MultiAutoCompleteTextView(Context context) {
 		super(context);
-		setFont(context, null, 0);
+		FontStylist.apply(this, null, 0);
 	}
 
 	public MultiAutoCompleteTextView(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		setFont(context, attrs, 0);
+		FontStylist.apply(this, attrs, 0);
 	}
 
-	public MultiAutoCompleteTextView(Context context, AttributeSet attrs, int defStyle) {
+	public MultiAutoCompleteTextView(Context context, AttributeSet attrs,
+			int defStyle) {
 		super(context, attrs, defStyle);
-		setFont(context, attrs, defStyle);
-	}
-
-	private void setFont(Context context, AttributeSet attrs, int defStyle) {
-		// avoid the GUI tool having a problem
-		if (isInEditMode()) {
-			return;
-		}
-
-		// TODO define default
-		String asset = "Roboto-Regular";
-
-		if (attrs != null) {
-			TypedArray values = context.obtainStyledAttributes(attrs,
-					R.styleable.FontStyleable, defStyle, 0);
-			if (values != null) {
-				asset = values.getString(R.styleable.FontStyleable_typeface);
-				values.recycle();
-			}
-		}
-
-		final Typeface typeface = TypefaceHelper.getInstance().getTypeface(
-				context, asset);
-		setTypeface(typeface);
+		FontStylist.apply(this, attrs, defStyle);
 	}
 
 }
